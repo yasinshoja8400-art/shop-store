@@ -1,46 +1,74 @@
-export default function App() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-700 to-green-400 text-white p-6">
+{/* CART PANEL */}
+        <section className="bg-purple-950/70 backdrop-blur-xl rounded-3xl border border-white/20 p-5 md:p-6 shadow-2xl shadow-purple-900/70">
+          <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+            سبد خرید
+            <span className="text-xs text-purple-200">
+              ({cart.length} محصول)
+            </span>
+          </h3>
 
-      {/* HEADER */}
-      <header className="text-center mb-10">
-        <h1 className="text-4xl font-extrabold tracking-wide drop-shadow-md">
-          فروشگاه آنلاین
-        </h1>
-        <p className="text-green-200 mt-2 text-lg">بهترین محصولات با بهترین قیمت</p>
-      </header>
+          {cart.length === 0 ? (
+            <p className="text-sm text-purple-200">
+              سبد خرید شما خالی است. روی{" "}
+              <span className="font-semibold text-emerald-300">
+                «افزودن به سبد خرید»
+              </span>{" "}
+              کلیک کنید.
+            </p>
+          ) : (
+            <>
+              <ul className="space-y-3 max-h-64 overflow-y-auto pr-1">
+                {cart.map((item) => (
+                  <li
+                    key={item.id}
+                    className="flex items-center justify-between bg-white/5 border border-white/10 rounded-2xl px-3 py-2 text-sm"
+                  >
+                    <div>
+                      <p className="font-semibold text-emerald-200">
+                        {item.name}
+                      </p>
+                      <p className="text-xs text-purple-200 mt-1">
+                        قیمت: {formatNumber(item.price)} تومان
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => handleRemove(item.id)}
+                      className="text-xs px-3 py-1 rounded-full bg-red-500/80 hover:bg-red-500 text-white"
+                    >
+                      حذف
+                    </button>
+                  </li>
+                ))}
+              </ul>
 
-      {/* PRODUCT CARD */}
-      <div className="max-w-md mx-auto bg-white/10 backdrop-blur-lg p-5 rounded-3xl shadow-xl border border-white/20">
+              <div className="mt-4 border-t border-white/15 pt-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm text-purple-100">جمع کل</span>
+                  <span className="text-lg font-bold text-emerald-300">
+                    {formatNumber(total)}{" "}
+                    <span className="text-xs text-emerald-200">تومان</span>
+                  </span>
+                </div>
 
-        {/* PRODUCT IMAGE */}
-        <img
-          src="https://cdnfa.com/ghaemmobile/0097f02/files/9714656.jpg"
-          alt="هولدر مکانیکی"
-          className="rounded-xl w-full mb-5 shadow-lg border border-white/20"
-        />
-
-        {/* PRODUCT INFO */}
-        <h2 className="text-2xl font-bold text-green-300">هولدر مکانیکی 360 درجه جرثقیلی</h2>
-        <p className="mt-3 text-purple-100 leading-7">
-          مناسب استفاده برای تمامی خودروها  
-          <br /> مکانیسم قفل خودکار – چرخش ۳۶۰ درجه – کیفیت ساخت فوق‌العاده
-        </p>
-
-        {/* PRICE */}
-        <p className="text-3xl font-extrabold text-green-300 mt-4">
-          ۳۶۵,۰۰۰ <span className="text-sm text-green-200">تومان</span>
-        </p>
-
-        {/* BUTTON */}
-        <button className="w-full mt-6 bg-green-400 hover:bg-green-500 text-purple-900 font-bold py-3 rounded-xl text-lg shadow-lg transition">
-          سفارش محصول
-        </button>
-      </div>
+                <button
+                  onClick={() =>
+                    alert(
+                      "برای نهایی کردن سفارش، این دکمه را بعداً به واتساپ یا پیج اینستاگرام خودت وصل می‌کنیم. 😉"
+                    )
+                  }
+                  className="w-full rounded-2xl bg-gradient-to-r from-emerald-400 to-lime-300 text-purple-900 font-bold py-3 text-sm shadow-lg shadow-emerald-500/60 hover:brightness-110 transition"
+                >
+                  ثبت سفارش
+                </button>
+              </div>
+            </>
+          )}
+        </section>
+      </main>
 
       {/* FOOTER */}
-      <footer className="text-center text-purple-200 mt-10 text-sm">
-        © 2025 My Shop — تمامی حقوق محفوظ است.
+      <footer className="mt-10 text-center text-xs text-purple-200">
+        © ۲۰۲۵ فروشگاه جرثقیلی – تمامی حقوق محفوظ است.
       </footer>
     </div>
   );
